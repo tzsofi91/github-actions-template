@@ -1,3 +1,21 @@
 name: CI
+
 on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: echo "Hello from $(hostname)"
+      - run: pwd && ls -A
+      - run: node --version
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
